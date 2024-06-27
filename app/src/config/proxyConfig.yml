@@ -1,0 +1,8 @@
+/service1:
+  target: "http://localhost:4001"
+  pathRewrite:
+    "^/api/service1": ""
+/service2:
+  target: "http://localhost:4002"
+  pathRewrite:
+    "^/api/service2": ""

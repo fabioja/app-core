@@ -1,0 +1,33 @@
+version: '3'
+services:
+  db:
+    build:
+      context: ./sgbd
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pgsql123
+      POSTGRES_DB: italiansurnamemaps    
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  app:
+    build:
+      context: ./app
+    expose:
+      - "3000"
+    environment:
+      NODE_ENV: production   
+    depends_on:
+      - db
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+volumes:
+  postgres-data:
